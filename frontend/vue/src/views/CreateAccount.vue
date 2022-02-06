@@ -1,7 +1,12 @@
 <template>
   <div class="create-account">
     <h1>Create Account</h1>
-    <form-input label="username" type="text" v-model="username" data-test-username />
+    <form-input
+      label="username"
+      type="text"
+      v-model="username"
+      data-test-username
+    />
     <form-input
       label="password"
       type="password"
@@ -28,29 +33,29 @@ export default {
   },
   methods: {
     handleFormSubmitted() {
-      this.$emit('createAccount');
-    }
+      this.$emit("createAccount");
+    },
   },
   computed: {
     isFormValid() {
-      return !this.$store.getters.createAccountFormValid;
+      return !this.$store.getters.accountFormValid;
     },
     password: {
       get() {
-        return this.$store.state.createAccount.password;
+        return this.$store.state.accountForm.password;
       },
       set(password) {
         return this.$emit("passwordSet", password);
-      }
+      },
     },
     username: {
       get() {
-        return this.$store.state.createAccount.username;
+        return this.$store.state.accountForm.username;
       },
       set(newUsername) {
         this.$emit("usernameSet", newUsername);
-      }
-    }
+      },
+    },
   },
 };
 </script>
