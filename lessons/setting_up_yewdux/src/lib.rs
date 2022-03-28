@@ -1,34 +1,36 @@
 mod counter;
+mod display;
 mod router;
+mod store;
 
+use counter::Counter;
+use display::DisplayCount;
+use router::{switch, Route};
+use store::{init, YewduxStore};
 use yew::prelude::*;
 use yew_router::prelude::*;
 use yewdux::prelude::*;
 
-use crate::counter::Counter;
-use router::{switch, Route};
-
-#[derive(Clone, Default)]
-pub struct YewduxState {
-    pub count: u32,
+pub struct App {
+    _dispatch: Dispatch<BasicStore<YewduxStore>>,
 }
-
-pub struct App;
 
 impl Component for App {
     type Message = ();
 
-    type Properties = DispatchProps<BasicStore<YewduxState>>;
+    type Properties = DispatchProps<BasicStore<YewduxStore>>;
 
     fn create(_ctx: &Context<Self>) -> Self {
-        Self
+        let _dispatch = init();
+        Self { _dispatch }
     }
 
     fn view(&self, _ctx: &Context<Self>) -> Html {
         html! {
             <div>
-                <h1>{"Main App"}</h1>
+                <h1>{"App"}</h1>
                 <WithDispatch<Counter> />
+                <WithDispatch<DisplayCount> />
                 <BrowserRouter>
                     <Switch<Route> render={Switch::render(switch)} />
                 </BrowserRouter>
